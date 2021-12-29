@@ -1,4 +1,6 @@
 package dev.nawaid.Models;
 
-public class Player {
+public abstract class Player {
+    private Symbol symbol;
+    public abstract void makeMove(Board board);
 }
