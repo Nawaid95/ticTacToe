@@ -25,6 +25,7 @@ public class Board {
             for (int j = 0; j < this.columnCount; j++) {
                 System.out.print(this.cells.get(i).get(j).getSymbol().getIdentifier() + " ");
             }
+      System.out.println("");
         }
     }
 }

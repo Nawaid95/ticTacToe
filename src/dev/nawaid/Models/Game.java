@@ -24,6 +24,17 @@ public class Game {
         return currentPlayer;
     }
 
+  public void printBoard() {
+    this.board.printBoard();
+  }
+
+  public void printPlayers() {
+    for (int i = 0; i < this.playersList.size(); i++) {
+      System.out.println(
+          "Player " + String.valueOf(i + 1) + ": " + this.playersList.get(i).getName());
+    }
+  }
+
     public static Builder getBuilder() {
         return new Builder();
     }
@@ -39,11 +50,6 @@ public class Game {
 
         public Builder addPlayer(Player player) {
             this.gameObj.playersList.add(player);
-            return this;
-        }
-
-        public Builder addBoard(Board board) {
-            this.gameObj.board = board;
             return this;
         }
 

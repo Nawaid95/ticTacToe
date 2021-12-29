@@ -8,6 +8,11 @@ public class HumanPlayer extends Player {
 
     }
 
+  @Override
+  public String getName() {
+    return user.getName();
+  }
+
     public static Builder getBuilder() {
         return new Builder();
     }
