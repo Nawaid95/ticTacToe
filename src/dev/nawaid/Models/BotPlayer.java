@@ -14,4 +14,21 @@ public class BotPlayer extends Player {
             moveStrategy.makeMove(board);
         }
     }
+
+    public static Builder getBuilder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private BotPlayer botPlayerObj;
+
+        public Builder addBotMoveStrategy(BotMoveStrategy botStrat) {
+            this.botPlayerObj.moveStrategies.add(botStrat);
+            return this;
+        }
+
+        public BotPlayer build() {
+            return this.botPlayerObj;
+        }
+    }
 }

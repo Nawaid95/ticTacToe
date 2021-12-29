@@ -24,22 +24,6 @@ public class Game {
         return currentPlayer;
     }
 
-    private void addPlayer(Player player) {
-        this.playersList.add(player);
-    }
-
-    private void addWinningStrategy(WinningStrategy winStrat) {
-        this.winningStrategies.add(winStrat);
-    }
-
-    private void setBoard(Board board) {
-        this.board = board;
-    }
-
-    private void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
     public static Builder getBuilder() {
         return new Builder();
     }
@@ -54,17 +38,17 @@ public class Game {
         }
 
         public Builder addPlayer(Player player) {
-            this.gameObj.addPlayer(player);
+            this.gameObj.playersList.add(player);
             return this;
         }
 
         public Builder addBoard(Board board) {
-            this.gameObj.setBoard(board);
+            this.gameObj.board = board;
             return this;
         }
 
         public Builder addWinningStrategy(WinningStrategy winStrat) {
-            this.gameObj.addWinningStrategy(winStrat);
+            this.gameObj.winningStrategies.add(winStrat);
             return this;
         }
 
@@ -94,19 +78,15 @@ public class Game {
             List<List<Cell>> cells = new ArrayList<>();
             for (int i = 0; i < this.rowCount; i++) {
                 cells.add(new ArrayList<>());
-                Symbol symbol = new Symbol();
-                symbol.setIdentifier('_');
+                Symbol symbol = new Symbol('_');
                 for (int j = 0; j < this.columnCount; j++) {
-                    Cell cell = new Cell();
-                    cell.setX(i);
-                    cell.setY(j);
-                    cell.setSymbol(symbol);
+                    Cell cell = new Cell(i, j, symbol);
                     cells.get(i).add(cell);
                 }
             }
             board.setCells(cells);
-            this.gameObj.setBoard(board);
-            this.gameObj.setCurrentPlayer(this.gameObj.getPlayersList().get(0));
+            this.gameObj.board = board;
+            this.gameObj.currentPlayer = this.gameObj.getPlayersList().get(0);
             return this.gameObj;
         }
 

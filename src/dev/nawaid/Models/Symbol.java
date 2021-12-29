@@ -3,11 +3,11 @@ package dev.nawaid.Models;
 public class Symbol {
     private char identifier;
 
-    public char getIdentifier() {
-        return identifier;
+    public Symbol(char identifier) {
+        this.identifier = identifier;
     }
 
-    public void setIdentifier(char identifier) {
-        this.identifier = identifier;
+    public char getIdentifier() {
+        return identifier;
     }
 }
