@@ -1,6 +1,8 @@
 package dev.nawaid.Models;
 
+import dev.nawaid.Exceptions.InvalidColumnCountException;
 import dev.nawaid.Exceptions.InvalidPlayerCountException;
+import dev.nawaid.Exceptions.InvalidRowCountException;
 import dev.nawaid.Strategies.WinningStrategy;
 
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class Game {
 
     public static class Builder {
         private Game gameObj;
+        private int rowCount;
+        private int columnCount;
 
         public Builder() {
             this.gameObj = new Game();
@@ -64,10 +68,44 @@ public class Game {
             return this;
         }
 
-        public Game build() throws InvalidPlayerCountException {
+        public Builder setRowCount(int rowCount) {
+            this.rowCount = rowCount;
+            return this;
+        }
+
+        public Builder setColumnCount(int columnCount) {
+            this.columnCount = columnCount;
+            return this;
+        }
+
+        public Game build() throws InvalidPlayerCountException, InvalidRowCountException, InvalidColumnCountException {
+            if (this.rowCount < 1) {
+                throw new InvalidRowCountException();
+            }
+            if (this.columnCount < 1) {
+                throw new InvalidColumnCountException();
+            }
             if (this.gameObj.getPlayersList().size() < 2) {
                 throw new InvalidPlayerCountException();
             }
+            Board board = new Board();
+            board.setRowCount(this.rowCount);
+            board.setColumnCount(this.columnCount);
+            List<List<Cell>> cells = new ArrayList<>();
+            for (int i = 0; i < this.rowCount; i++) {
+                cells.add(new ArrayList<>());
+                Symbol symbol = new Symbol();
+                symbol.setIdentifier('_');
+                for (int j = 0; j < this.columnCount; j++) {
+                    Cell cell = new Cell();
+                    cell.setX(i);
+                    cell.setY(j);
+                    cell.setSymbol(symbol);
+                    cells.get(i).add(cell);
+                }
+            }
+            board.setCells(cells);
+            this.gameObj.setBoard(board);
             this.gameObj.setCurrentPlayer(this.gameObj.getPlayersList().get(0));
             return this.gameObj;
         }
